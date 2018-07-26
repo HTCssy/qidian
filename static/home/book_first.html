@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <link rel="stylesheet" href="../../static/css/style.css">
+    <link rel="stylesheet" href="../../static/css/nav.css">
+    <link rel="stylesheet" href="../../static/css/banner.css">
+    <script type="text/javascript" src="../../static/js/jquery-2.1.0.js"></script>
+    <style>
+        #box{
+            margin: 0 auto;
+            width: 1200px;
+        }
+        #head #left_ul{
+            float: left;
+            padding: 5px;
+        }
+        #head #right_ul{
+            float: right;
+            padding: 5px;
+        }
+       #head #left_ul>li{
+           float: left;
+           padding: 5px;
+           border-right: #dddddd solid 1px;
+       }
+        #head #right_ul>li{
+            float: left;
+            padding: 5px;
+        }
+        #head #head_url>li{
+            float: left;
+            padding: 5px;
+        }
+        #nav>div{
+            float: left;
+        }
+        #nav_left{
+            background: #dddddd;
+            width: 20%;
+            height: 550px;
+        }
+        #nav_right{
+            background: yellow;
+            width: 80%;
+            height: 550px;
+        }
+        #nav_right #nav_right_ul>li{
+            float: left;
+            padding: 5px;
+        }
+        #book_read>ul{
+            float: left;
+            padding: 5px;
+        }
+        #book_read ul>#book_read_text>p{
+            float: left;
+            padding: 5px;
+        }
+        #imgs ul>li{
+            float: left;
+            padding: 10px;
+        }
+
+    </style>
+    <script type="text/javascript">
+        $(function () {
+            nav_list()
+            book_class()
+        });
+        function nav_list() {
+            url = "http://127.0.0.1:8000/qidian/nav/";
+            $.get(url,function (result) {
+                if (result && result.status === 200){
+                    let book_classes = result.nav;
+                    console.log(book_classes);
+                    for (let book_class in book_classes){
+                        $('#nav_right_ul').append($('<li>').attr('id', 'right_class')
+                                                        .text(book_classes[book_class]['nav_name']))
+                    }
+                }
+            })
+        }
+        function book_class() {
+            url = '/qidian/bookclass/';
+            $.get(url,function (result) {
+                if (result && result.status === 200){
+                    let classnames = result.class_names;
+                    for (let classname in classnames)
+                    $('#book_class').append($('<li>').attr('id', 'book_class_li')
+                                                     .text(classnames[classname]['class_name']))
+                }
+            })
+        }
+    </script>
+</head>
+<body>
+<div>
+<div id="box" class="clear">
+    <div id="head">
+        <ul id="left_ul">
+            <li>起点中文网</li>
+            <li>起点女生网</li>
+            <li>创世中文网</li>
+            <li>云起书院</li>
+            <li>繁体版</li>
+        </ul>
+        <ul id="right_ul">
+            <li>登陆</li>
+            <li>注册</li>
+        </ul>
+        <ul>
+            <img src="../../static/img/0.jpg" alt="">
+        </ul>
+        <ul id="head_url" class="clear">
+            <li><a href="#"><span>起点中文网</span></a></li>
+            <li>
+                <form action="#" method="post">
+                    <input type="text">
+                    <input type="submit" value="搜索">
+                </form>
+            </li>
+            <li><a href="#">我的书架</a></li>
+        </ul>
+    </div>
+    <div id="nav" class="clear">
+        <div id="nav_left">
+            <ul>
+                <li style="padding: 5px">作品分类</li>
+            </ul>
+
+            <ul id="book_class">
+
+            </ul>
+        </div>
+        <div id="nav_right">
+            <ul id="nav_right_ul" class="clear">
+            </ul>
+
+            <div id="book_read" class="clear">
+                <ul>
+                    <li>
+                        <img src="../../static/img/1.jpg" alt="">
+                    </li>
+                    <li id="book_read_text">
+                        <p>====</p>
+                        <p>====</p>
+                        <p>====</p>
+                        <p>====</p>
+                    </li>
+                </ul>
+                <ul>
+                    <li>--------------</li>
+                    <li>--------------</li>
+                    <li>===============</li>
+                    <li>===============</li>
+                    <li>===============</li>
+                </ul>
+            </div>
+            <div id="imgs">
+                <ul>
+                    <li>
+                        <img src="../../static/img/2.png" alt="">
+                        <img src="../../static/img/3.png" alt="">
+                        <img src="../../static/img/4.png" alt="">
+                        <img src="../../static/img/5.jpg" alt="">
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</div>
+</div>
+</body>
+</html>
